@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+</head>
+<body>
+<br><br>
+<input name="login" type="text" placeholder="логин" id="login">
+<input name="password" type="text" placeholder="пароль" id="password" >
+<input type="submit" value="Создать" onclick="reg()">
+<script>
+    function reg(){
+      var login = document.getElementById("login").value;
+      var password = document.getElementById("password").value;
+      fetch(`/api/register?login=${login}&password=${password}`);
+      document.location.reload();
+    }
+</script>
+
+</body>
+</html>
