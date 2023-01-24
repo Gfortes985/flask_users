@@ -7,7 +7,8 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-#код отображения галвной страницы в root'е сайта
+#код отображения главной страницы сайта
+#http://127.0.0.1:5000/
 @app.route('/',methods=["GET","POST"])
 def index():
     return render_template('index.html')
@@ -15,9 +16,10 @@ def index():
 #отлов ошибки 404 и предоставление ее в json формате
 @app.errorhandler(404)
 def not_found(error):
-    return make_response(jsonify({'error':'Not found'}),404)
+    return make_response(jsonify({'error':'404 Not found'}),404)
 
 #API для регистрации пользователя возращает ошибку или инфо в json формате
+#http://127.0.0.1:5000/api/register?login=логин&password=пароль
 @app.route('/api/register',methods=["GET"])
 def register():
     login = request.args.get('login')
@@ -39,6 +41,7 @@ def register():
     return make_response(jsonify({'info': 'user registered'}), 200)
 
 #API для просмотра зарегистрированных пользователей в формате json
+#http://127.0.0.1:5000/api/users
 @app.route('/api/users')
 def users_collection():
     d = {}
@@ -49,7 +52,8 @@ def users_collection():
             d["users"].append(i)
     return d
 
-#API для просмотра данных учетной записи конкретного пользоватля в формате json (http://127.0.0.1:5000/api/users/[username])
+#API для просмотра данных учетной записи конкретного пользоватля в формате json
+#http://127.0.0.1:5000/api/users/[username]
 @app.route('/api/users/<usr>')
 def user_data(usr):
     with open('users.json','r') as file:
